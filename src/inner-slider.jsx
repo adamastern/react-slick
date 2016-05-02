@@ -129,9 +129,10 @@ export var InnerSlider = React.createClass({
       nextArrow = (<NextArrow {...arrowProps} />);
     }
 
-    var listStyle = {
-      padding: `0px ${this.props.centerPadding}`
-    };
+    var listStyle = {};
+    if(this.props.centerMode){
+      listStyle.padding = `0px ${this.props.centerPadding}`
+    }
 
     return (
       <div className={className} onMouseEnter={this.onInnerSliderEnter} onMouseLeave={this.onInnerSliderLeave}>

@@ -330,9 +330,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      nextArrow = _react2['default'].createElement(_arrows.NextArrow, arrowProps);
 	    }
 
-	    var listStyle = {
-	      padding: '0px ' + this.props.centerPadding
-	    };
+	    var listStyle = {};
+	    if (this.props.centerMode) {
+	      listStyle.padding = '0px ' + this.props.centerPadding;
+	    }
 
 	    return _react2['default'].createElement(
 	      'div',
@@ -743,11 +744,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var helpers = {
 	  initialize: function initialize(props) {
-	    var slideCount = _react2['default'].Children.count(props.children);
-	    var listWidth = this.getWidth(_ReactDOM2['default'].findDOMNode(this.refs.list));
-	    var trackWidth = this.getWidth(_ReactDOM2['default'].findDOMNode(this.refs.track));
-	    var slideWidth = this.getWidth(_ReactDOM2['default'].findDOMNode(this)) / props.slidesToShow;
 
+	    var slideCount = _react2['default'].Children.count(props.children);
+
+	    var listPadding = 0;
+	    if (props.centerMode && props.centerPadding) {
+	      listPadding = parseInt(props.centerPadding) * 2;
+	    }
+	    var listWidth = this.getWidth(_ReactDOM2['default'].findDOMNode(this.refs.list)) - listPadding;
+	    var trackWidth = this.getWidth(_ReactDOM2['default'].findDOMNode(this.refs.track));
+	    var slideWidth = (this.getWidth(_ReactDOM2['default'].findDOMNode(this)) - listPadding) / props.slidesToShow;
 	    var currentSlide = props.rtl ? slideCount - 1 - props.initialSlide : props.initialSlide;
 
 	    this.setState({
@@ -774,9 +780,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // This method has mostly same code as initialize method.
 	    // Refactor it
 	    var slideCount = _react2['default'].Children.count(props.children);
-	    var listWidth = this.getWidth(_ReactDOM2['default'].findDOMNode(this.refs.list));
+	    var listPadding = 0;
+	    if (props.centerMode && props.centerPadding) {
+	      listPadding = parseInt(props.centerPadding) * 2;
+	    }
+	    var listWidth = this.getWidth(_ReactDOM2['default'].findDOMNode(this.refs.list)) - listPadding;
 	    var trackWidth = this.getWidth(_ReactDOM2['default'].findDOMNode(this.refs.track));
-	    var slideWidth = this.getWidth(_ReactDOM2['default'].findDOMNode(this)) / props.slidesToShow;
+	    var slideWidth = (this.getWidth(_ReactDOM2['default'].findDOMNode(this)) - listPadding) / props.slidesToShow;
 
 	    this.setState({
 	      slideCount: slideCount,

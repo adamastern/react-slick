@@ -8,11 +8,16 @@ import assign from 'object-assign';
 
 var helpers = {
   initialize: function (props) {
-    var slideCount = React.Children.count(props.children);
-    var listWidth = this.getWidth(ReactDOM.findDOMNode(this.refs.list));
-    var trackWidth = this.getWidth(ReactDOM.findDOMNode(this.refs.track));
-    var slideWidth = this.getWidth(ReactDOM.findDOMNode(this))/props.slidesToShow;
 
+    var slideCount = React.Children.count(props.children);
+
+    var listPadding = 0;
+    if(props.centerMode && props.centerPadding){
+      listPadding = parseInt(props.centerPadding) * 2
+    }
+    var listWidth = this.getWidth(ReactDOM.findDOMNode(this.refs.list)) - listPadding;
+    var trackWidth = this.getWidth(ReactDOM.findDOMNode(this.refs.track));
+    var slideWidth = (this.getWidth(ReactDOM.findDOMNode(this)) - listPadding)/props.slidesToShow;
     var currentSlide = props.rtl ? slideCount - 1 - props.initialSlide : props.initialSlide;
 
     this.setState({
@@ -39,9 +44,13 @@ var helpers = {
     // This method has mostly same code as initialize method.
     // Refactor it
     var slideCount = React.Children.count(props.children);
-    var listWidth = this.getWidth(ReactDOM.findDOMNode(this.refs.list));
+    var listPadding = 0;
+    if(props.centerMode && props.centerPadding){
+      listPadding = parseInt(props.centerPadding) * 2
+    }
+    var listWidth = this.getWidth(ReactDOM.findDOMNode(this.refs.list)) - listPadding;
     var trackWidth = this.getWidth(ReactDOM.findDOMNode(this.refs.track));
-    var slideWidth = this.getWidth(ReactDOM.findDOMNode(this))/props.slidesToShow;
+    var slideWidth = (this.getWidth(ReactDOM.findDOMNode(this)) - listPadding)/props.slidesToShow;
 
     this.setState({
       slideCount: slideCount,
